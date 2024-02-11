@@ -1,74 +1,23 @@
 <template>
   <div>
-    <div>
-      <div>Fistname</div>
-      <input type="text" name="firstname" v-model="formData.firstname" />
-    </div>
-    <div>
-      <div>Lastname</div>
-      <input type="text" name="lastname" v-model="formData.lastname" />
-    </div>
-    <div>
-      <div>Description</div>
-      <textarea
-        name="description"
-        cols="30"
-        rows="10"
-        v-model="formData.description"
-      ></textarea>
-    </div>
-    <div>
-      Gender
-      <div v-for="gender in genderList">
-        <input
-          type="radio"
-          name="gender"
-          :value="gender"
-          v-model="formData.gender"
-        />
-        {{ gender }}
-      </div>
-    </div>
-
-    <div>
-      Interest
-      <div v-for="interest in interestList">
-        <input
-          type="checkbox"
-          name="interest"
-          :value="interest"
-          v-model="formData.interest"
-        />
-        {{ interest }}
-      </div>
-    </div>
-
-    <div>
-      <button @click="sendForm()">Send</button>
-    </div>
+    <input type="text" v-model="message">
   </div>
+  <CounterComponent :messageTextFromProp="message" :changeMessageText="changeMessageText"></CounterComponent>
+  
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
-import { FormDataInput } from "./models/form";
+import FormComponent from "./components/Form.vue";
+import CounterComponent from "./components/Counter.vue";
+import { ref } from "vue";
 
-const genderList = ["men", "women", "none"];
-const interestList = ["book", "sports", "movie", "travel"];
 
-const formData = reactive<FormDataInput>({
-  firstname: "",
-  lastname: "",
-  description: "",
-  gender: "",
-  interest: [],
-});
+const message = ref('')
 
-function sendForm() {
-  console.log(formData);
+function changeMessageText(newMsg) {
+  message.value = newMsg
 }
+
 </script>
 
-<style>
-/* Your styles here */
-</style>
+<style></style>
